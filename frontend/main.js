@@ -13,19 +13,21 @@ fetch(endpointUrl+'get-songs/'+start)
         // console.log(response.json());
         data.forEach(song => {
             const li = document.createElement("li");
-            li.textContent = `${song[1]} `;
+            li.classList.add('song');
+            li.innerHTML = `<h3>${song[1]} </h3>`;
             
             // create a like button for the song
             const likeButton = document.createElement("button");
+            likeButton.classList.add('bon');
             likeButton.textContent = "Like";
             likeButton.onclick = function() {
               // call the like-song endpoint with the song ID
               fetch(endpointUrl+'like-song/'+song[0], { method: "POST" });
             };
             li.appendChild(likeButton);
-
             const simmButton = document.createElement("button");
             simmButton.textContent = "Get Similiar Songs";
+            simmButton.classList.add('bon2');
             simmButton.onclick = function() {
                 start=0;
                 songList.innerHTML='';
@@ -35,6 +37,7 @@ fetch(endpointUrl+'get-songs/'+start)
                 .then(data => {
                     data.forEach(song=>{
                         const li = document.createElement("li");
+                        li.classList.add('song');
                         li.textContent = `${song[1]} `;
                         songList.appendChild(li);
                     })
@@ -43,6 +46,7 @@ fetch(endpointUrl+'get-songs/'+start)
             li.appendChild(simmButton);
 
             songList.appendChild(li);
+            songList.appendChild(document.createElement("br"));
           });
         })
         .catch(error => console.error(error));
